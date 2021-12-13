@@ -1,4 +1,4 @@
-package com.example.AEPB.model;
+package com.example.AEPB.AirCoin.model;
 
 import lombok.Data;
 

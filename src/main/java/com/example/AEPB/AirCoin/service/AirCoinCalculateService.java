@@ -1,7 +1,7 @@
-package com.example.AEPB.service;
+package com.example.AEPB.AirCoin.service;
 
-import com.example.AEPB.model.AirCoin;
-import com.example.AEPB.exception.AmountOutOfRangeException;
+import com.example.AEPB.AirCoin.model.AirCoin;
+import com.example.AEPB.AirCoin.exception.AmountOutOfRangeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
