@@ -1,21 +1,19 @@
-package ParkingLot;
+package com.example.AEPB.smartParkingLot;
 
-import com.example.AEPB.ParkingLot.exception.NoFreeParkingSpaceException;
-import com.example.AEPB.ParkingLot.exception.PickUpException;
-import com.example.AEPB.ParkingLot.model.ParkingLot;
-import com.example.AEPB.ParkingLot.model.ParkingTicket;
+import com.example.AEPB.smartParkingLot.exception.NoFreeParkingSpaceException;
+import com.example.AEPB.smartParkingLot.exception.PickUpException;
+import com.example.AEPB.smartParkingLot.model.ParkingLot;
+import com.example.AEPB.smartParkingLot.model.ParkingTicket;
 import org.junit.Before;
 import org.junit.Test;
-import com.example.AEPB.ParkingLot.model.Car;
-import com.example.AEPB.ParkingLot.service.SmartParkingService;
+import com.example.AEPB.smartParkingLot.model.Car;
+import com.example.AEPB.smartParkingLot.service.SmartParkingService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SmartParkingServiceTest {
 

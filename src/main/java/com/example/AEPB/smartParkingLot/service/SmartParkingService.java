@@ -1,12 +1,12 @@
-package com.example.AEPB.ParkingLot.service;
+package com.example.AEPB.smartParkingLot.service;
 
-import com.example.AEPB.ParkingLot.exception.NoFreeParkingSpaceException;
-import com.example.AEPB.ParkingLot.exception.PickUpException;
-import com.example.AEPB.ParkingLot.model.ParkingLot;
-import com.example.AEPB.ParkingLot.model.ParkingTicket;
+import com.example.AEPB.smartParkingLot.exception.NoFreeParkingSpaceException;
+import com.example.AEPB.smartParkingLot.exception.PickUpException;
+import com.example.AEPB.smartParkingLot.model.ParkingLot;
+import com.example.AEPB.smartParkingLot.model.ParkingTicket;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.example.AEPB.ParkingLot.model.Car;
+import com.example.AEPB.smartParkingLot.model.Car;
 
 import java.util.Comparator;
 import java.util.List;
