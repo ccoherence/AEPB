@@ -23,7 +23,7 @@ public class ParkingLot {
 
     private List<Boolean> parkingSpaceStatus;
 
-    private Map<Integer, Car> carMap;
+    private Map<Integer, Car> /**/carMap;
 
     public static ParkingLot initParkingLot(Integer totalParkingSpaces) {
         if (totalParkingSpaces < 0) {
