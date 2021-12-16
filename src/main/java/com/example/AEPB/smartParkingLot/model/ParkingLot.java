@@ -52,6 +52,10 @@ public class ParkingLot {
         return pickCar;
     }
 
+    public Integer getFreeParkingSpaces() {
+        return freeParkingSpaces < 0 ? 0 : freeParkingSpaces;
+    }
+
     public Integer getParkingLotVacancyRate() {
         try {
             return freeParkingSpaces / parkingSpaceStatus.size();

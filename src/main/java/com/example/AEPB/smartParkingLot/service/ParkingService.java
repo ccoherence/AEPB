@@ -16,23 +16,27 @@ public abstract class ParkingService {
     private List<ParkingLot> parkingLots;
 
     public ParkingTicket parking(Car car){
-        Optional<ParkingLot> parkingLot = getParkingLot();
-        if (parkingLot.isPresent() && !parkingLot.get().getCarMap().containsValue(car)) {
-            if(parkingLot.get().getFreeParkingSpaces() <= 0){
-                throw new NoFreeParkingSpaceException("There is no free parking space");
-            }
-            List<Boolean> parkingSpaceStatus = parkingLot.get().getParkingSpaceStatus();
-            for (int i = 0; i < parkingSpaceStatus.size(); i++) {
-                if (Boolean.FALSE.equals(parkingSpaceStatus.get(i))) {
-                    parkingLot.get().park(i, car);
-                    return ParkingTicket.builder()
-                            .parkingLotNumber(parkingLots.indexOf(parkingLot.get()))
-                            .parkingSpaceNumber(i)
-                            .numberPlate(car.getNumberPlate()).build();
+        ParkingTicket.ParkingTicketBuilder parkingTicketBuilder = ParkingTicket.builder();
+        getParkingLot().ifPresent(parkingLot -> {
+            if (!parkingLot.getCarMap().containsValue(car)) {
+                if (parkingLot.getFreeParkingSpaces() == 0) {
+                    throw new NoFreeParkingSpaceException("There is no free parking space");
+                }
+                List<Boolean> parkingSpaceStatus = parkingLot.getParkingSpaceStatus();
+                for (int i = 0; i < parkingSpaceStatus.size(); i++) {
+                    if (Boolean.FALSE.equals(parkingSpaceStatus.get(i))) {
+                        parkingLot.park(i, car);
+                        parkingTicketBuilder
+                                .parkingLotNumber(parkingLots.indexOf(parkingLot))
+                                .parkingSpaceNumber(i)
+                                .numberPlate(car.getNumberPlate());
+                        return;
+                    }
                 }
             }
-        }
-        return ParkingTicket.builder().build();
+        });
+
+        return parkingTicketBuilder.build();
     }
 
     public Car pickUp(ParkingTicket parkingTicket){
