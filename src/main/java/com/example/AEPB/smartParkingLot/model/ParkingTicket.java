@@ -16,7 +16,7 @@ public class ParkingTicket {
 
     private Integer parkingSpaceNumber;
 
-    private  String numberPlate;
+    private String numberPlate;
 
     @Override
     public String toString() {

@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SmartParkingService extends ParkingService{
+public class SuperParkingService extends ParkingService{
 
     private final List<ParkingLot> parkingLots;
 
-    public SmartParkingService(List<ParkingLot> parkingLots) {
+    public SuperParkingService(List<ParkingLot> parkingLots) {
         super(parkingLots);
         this.parkingLots = parkingLots;
     }
 
     @Override
     protected Optional<ParkingLot> getParkingLot() {
-        return parkingLots.stream().max(Comparator.comparing(ParkingLot::getFreeParkingSpaces));
+        return parkingLots.stream().max(Comparator.comparing(ParkingLot::getParkingLotVacancyRate));
     }
 }

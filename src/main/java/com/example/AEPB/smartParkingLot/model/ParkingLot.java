@@ -1,5 +1,6 @@
 package com.example.AEPB.smartParkingLot.model;
 
+import com.example.AEPB.smartParkingLot.exception.InitParkingLotException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,15 +25,18 @@ public class ParkingLot {
 
     private Map<Integer, Car> carMap;
 
-   public static ParkingLot initParkingLot(Integer totalParkingSpaces){
-       List<Boolean> parkingSpaceStatus=new ArrayList<>(Arrays.asList(new Boolean[totalParkingSpaces]));
-       Collections.fill(parkingSpaceStatus, Boolean.FALSE);
-       return ParkingLot.builder()
-               .freeParkingSpaces(totalParkingSpaces)
-               .parkingSpaceStatus(parkingSpaceStatus)
-               .carMap(new HashMap<>(totalParkingSpaces))
-               .build();
-   }
+    public static ParkingLot initParkingLot(Integer totalParkingSpaces) {
+        if (totalParkingSpaces < 0) {
+            throw new InitParkingLotException("Init parking lot failed.");
+        }
+        List<Boolean> parkingSpaceStatus = new ArrayList<>(Arrays.asList(new Boolean[totalParkingSpaces]));
+        Collections.fill(parkingSpaceStatus, Boolean.FALSE);
+        return ParkingLot.builder()
+                .freeParkingSpaces(totalParkingSpaces)
+                .parkingSpaceStatus(parkingSpaceStatus)
+                .carMap(new HashMap<>(totalParkingSpaces))
+                .build();
+    }
 
     public void park(Integer parkingSpace, Car car){
         freeParkingSpaces--;
@@ -48,4 +52,11 @@ public class ParkingLot {
         return pickCar;
     }
 
+    public Integer getParkingLotVacancyRate() {
+        try {
+            return freeParkingSpaces / parkingSpaceStatus.size();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }
