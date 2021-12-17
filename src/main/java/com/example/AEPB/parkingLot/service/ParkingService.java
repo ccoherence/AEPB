@@ -1,11 +1,11 @@
-package com.example.AEPB.smartParkingLot.service;
+package com.example.AEPB.parkingLot.service;
 
-import com.example.AEPB.smartParkingLot.exception.FakePlateVehiclesException;
-import com.example.AEPB.smartParkingLot.exception.NoFreeParkingSpaceException;
-import com.example.AEPB.smartParkingLot.exception.PickUpException;
-import com.example.AEPB.smartParkingLot.model.Car;
-import com.example.AEPB.smartParkingLot.model.ParkingLot;
-import com.example.AEPB.smartParkingLot.model.ParkingTicket;
+import com.example.AEPB.parkingLot.exception.FakePlateVehiclesException;
+import com.example.AEPB.parkingLot.exception.NoFreeParkingSpaceException;
+import com.example.AEPB.parkingLot.exception.PickUpException;
+import com.example.AEPB.parkingLot.model.Car;
+import com.example.AEPB.parkingLot.model.ParkingLot;
+import com.example.AEPB.parkingLot.model.ParkingTicket;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public abstract class ParkingService {
             List<Boolean> parkingSpaceStatus = parkingLot.getParkingSpaceStatus();
             for (int i = 0; i < parkingSpaceStatus.size(); i++) {
                 if (Boolean.FALSE.equals(parkingSpaceStatus.get(i))) {
-                    parkingLot.park(i, car);
+                    parkingLot.park(i, car, getOperator());
                     parkingTicketBuilder
                             .parkingLotNumber(parkingLots.indexOf(parkingLot))
                             .parkingSpaceNumber(i)
@@ -56,4 +56,14 @@ public abstract class ParkingService {
     }
 
     protected abstract Optional<ParkingLot> getParkingLot();
+
+    protected abstract String getOperator();
+
+    public String printParkingRecord() {
+        Integer statistic = 0;
+        for (ParkingLot parkingLot : parkingLots) {
+            statistic += parkingLot.getParkingLotStatistic(getOperator());
+        }
+        return String.format("%s : %s", getOperator(),  statistic);
+    }
 }

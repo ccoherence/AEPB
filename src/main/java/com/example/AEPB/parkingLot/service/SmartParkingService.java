@@ -1,6 +1,6 @@
-package com.example.AEPB.smartParkingLot.service;
+package com.example.AEPB.parkingLot.service;
 
-import com.example.AEPB.smartParkingLot.model.ParkingLot;
+import com.example.AEPB.parkingLot.model.ParkingLot;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 public class SmartParkingService extends ParkingService{
-
+    private static final String PARKING_MANAGER = "Parking Manager";
     private final List<ParkingLot> parkingLots;
 
     public SmartParkingService(List<ParkingLot> parkingLots) {
@@ -20,5 +20,10 @@ public class SmartParkingService extends ParkingService{
     @Override
     protected Optional<ParkingLot> getParkingLot() {
         return parkingLots.stream().max(Comparator.comparing(ParkingLot::getFreeParkingSpaces));
+    }
+
+    @Override
+    protected String getOperator() {
+        return PARKING_MANAGER;
     }
 }

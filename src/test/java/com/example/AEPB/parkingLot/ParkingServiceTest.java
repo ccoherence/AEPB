@@ -1,14 +1,14 @@
-package com.example.AEPB.smartParkingLot;
+package com.example.AEPB.parkingLot;
 
-import com.example.AEPB.smartParkingLot.exception.FakePlateVehiclesException;
-import com.example.AEPB.smartParkingLot.exception.NoFreeParkingSpaceException;
-import com.example.AEPB.smartParkingLot.exception.PickUpException;
-import com.example.AEPB.smartParkingLot.model.Car;
-import com.example.AEPB.smartParkingLot.model.ParkingLot;
-import com.example.AEPB.smartParkingLot.model.ParkingTicket;
-import com.example.AEPB.smartParkingLot.service.PrimaryParkingService;
-import com.example.AEPB.smartParkingLot.service.SmartParkingService;
-import com.example.AEPB.smartParkingLot.service.SuperParkingService;
+import com.example.AEPB.parkingLot.exception.FakePlateVehiclesException;
+import com.example.AEPB.parkingLot.exception.NoFreeParkingSpaceException;
+import com.example.AEPB.parkingLot.exception.PickUpException;
+import com.example.AEPB.parkingLot.model.Car;
+import com.example.AEPB.parkingLot.model.ParkingLot;
+import com.example.AEPB.parkingLot.model.ParkingTicket;
+import com.example.AEPB.parkingLot.service.PrimaryParkingService;
+import com.example.AEPB.parkingLot.service.SmartParkingService;
+import com.example.AEPB.parkingLot.service.SuperParkingService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,8 +47,8 @@ public class ParkingServiceTest {
         ParkingTicket ticket = primaryParkingService.parking(car);
 
         //then
-
         assertEquals("01-001-陕A001",ticket.toString());
+        assertEquals("Parking Boy : 1",primaryParkingService.printParkingRecord());
     }
 
     @Test
@@ -61,6 +61,7 @@ public class ParkingServiceTest {
 
         //then
         assertEquals("03-001-陕A001",ticket.toString());
+        assertEquals("Parking Manager : 1",smartParkingService.printParkingRecord());
     }
 
     @Test
@@ -76,6 +77,7 @@ public class ParkingServiceTest {
         //then
         assertEquals("03-001-陕A001",parkingTicket.toString());
         assertEquals("01-001-陕A002",parkingTicket2.toString());
+        assertEquals("Parking Director : 1",superParkingService.printParkingRecord());
     }
 
     @Test
@@ -89,7 +91,6 @@ public class ParkingServiceTest {
         //then
         assertEquals("陕A001",car.getNumberPlate());
     }
-
 
     @Test(expected = FakePlateVehiclesException.class)
     public void should_throw_exception_when_vehicles_with_cloned_license_plates(){

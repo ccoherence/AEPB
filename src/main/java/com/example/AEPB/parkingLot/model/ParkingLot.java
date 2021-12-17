@@ -1,6 +1,6 @@
-package com.example.AEPB.smartParkingLot.model;
+package com.example.AEPB.parkingLot.model;
 
-import com.example.AEPB.smartParkingLot.exception.InitParkingLotException;
+import com.example.AEPB.parkingLot.exception.InitParkingLotException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +23,9 @@ public class ParkingLot {
 
     private List<Boolean> parkingSpaceStatus;
 
-    private Map<Integer, Car> /**/carMap;
+    private Map<Integer, Car> carMap;
+
+    private Map<String, Integer> parkingLotStatistic;
 
     public static ParkingLot initParkingLot(Integer totalParkingSpaces) {
         if (totalParkingSpaces < 0) {
@@ -35,13 +37,15 @@ public class ParkingLot {
                 .freeParkingSpaces(totalParkingSpaces)
                 .parkingSpaceStatus(parkingSpaceStatus)
                 .carMap(new HashMap<>(totalParkingSpaces))
+                .parkingLotStatistic(new HashMap<>())
                 .build();
     }
 
-    public void park(Integer parkingSpace, Car car){
+    public void park(Integer parkingSpace, Car car, String operator){
         freeParkingSpaces--;
         parkingSpaceStatus.set(parkingSpace, true);
         carMap.put(parkingSpace, car);
+        parkingLotStatistic.put(operator, parkingLotStatistic.getOrDefault(operator, 0) + 1);
     }
 
     public Car pick(Integer parkingSpace){
@@ -62,5 +66,9 @@ public class ParkingLot {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    public Integer getParkingLotStatistic(String operator){
+        return parkingLotStatistic.getOrDefault(operator, 0);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.AEPB.smartParkingLot.model;
+package com.example.AEPB.parkingLot.model;
 
 import lombok.Builder;
 import lombok.Data;
